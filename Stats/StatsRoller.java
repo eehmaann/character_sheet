@@ -8,28 +8,88 @@ import java.util.Arrays;
 
 class StatsRoller {
 
-	
+	int dieSize;
+	int dieRolls;
+	int numberKept;
+	int baseScore=0;
 	public static final int ATTRIBUTECHOICES =6;
 	String[][] Stats= new String [ATTRIBUTECHOICES][2];
 	int[] attributes =new int[ATTRIBUTECHOICES];
-	int[] trackedScores = new int[ATTRIBUTECHOICES];
+	int[] trackScores = new int[ATTRIBUTECHOICES];
 	Random randomGenerator = new Random();
+	Scanner u = new Scanner(System.in);
 	String[] statTypes={"Dexterity", "Strength", "Toughness", "Perception", "Willpower", "Charisma"};
 	
 
  	public static void main(String[] args) {
  		
- 		StatsRoller sr =new StatsRoller();
-		sr.setUpMechanic();
-		int [] scores = new int [ATTRIBUTECHOICES];
-		sr.getAllScores();
+ 	StatsRoller sr =new StatsRoller();
+	sr.setUpMechanic();
+	int [] scores = new int [ATTRIBUTECHOICES];
+	scores=sr.getAllScores();
 	 	System.out.println("Your Scores");
-	 	for (int number : trackedScores)
+	 	for (int number : scores)
 	 		System.out.println(number);
  	}
 
 
- 	
+ 	/* This method determines the basics mechanics for rolling stats.
+		The user is able choose what the base number is, what sided die is rolled
+		and the number of times the die will be rolled per stat and the number of rolls kept
+	*/
+
+ 	public void setUpMechanic(){
+ 		int minDie=2;
+ 		int minRolls=1;
+ 		setBase();
+ 		System.out.println("What sided die will be used?");
+ 		dieSize=enforcePositive(minDie);
+ 		System.out.println("How many times to roll per stat?");
+ 		dieRolls=enforcePositive(minRolls);
+ 		
+ 		/*  This demonstrates using recursion in an interative process.  
+ 		    could delete do while loop by replacing minRolls with dieRolls */
+ 		do{
+ 			System.out.println("How many dice kept?");
+	 		numberKept = enforcePositive(minRolls);
+ 		}while (numberKept>dieRolls);
+ 
+ 	}
+
+ 	// Asks user to set a given number or 0 to be a garaunteed number for each stat
+
+ 	public void setBase(){
+ 			System.out.println("What is the stating number for each stat?");
+ 			baseScore=enforcePositive(baseScore);
+ 	}
+
+ 	/* This method will ensure that the user will choose a possitive number
+		@int min This is the minimum number needed for the number to be positive
+ 		@int a valid user inputed number
+ 	*/
+
+ 	public int enforcePositive(int min){
+ 		int chosenNumber=pickWholeNumber();
+ 		if (chosenNumber<min){
+ 			System.out.println("Please insert an integer " + min +" or higher");
+ 			enforcePositive(min);
+ 		}
+ 		return chosenNumber;
+ 	}
+
+ 	/* This method is used to allow the user to choose a whole number.  It continue to ask for a 
+ 		whole number until the user inputs one.  And will not throw an error message if user inserts string
+ 		@int number chosen by user
+ 	*/	
+ 	public int pickWholeNumber(){
+ 			
+ 		while (!u.hasNextInt()) {
+	   		System.out.println("Need a whole number 0 or higher");
+	   		u.nextLine();
+		}
+		return u.nextInt();
+ 	}
+	 
 	// creates an array of of integers to be used for attributes 
 
  	public void getAllScores(){
