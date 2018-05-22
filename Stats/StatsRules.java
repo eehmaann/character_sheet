@@ -1,4 +1,4 @@
-/* 
+ /* 
  * StatsRules.java
  * 
  * Author:          Eric Ehmann, eaehmann@gmail.com
@@ -13,17 +13,20 @@ public class StatsRules{
  	int minRolls=1;
 	int numberKept;
 	int baseScore=0;
+	int dieSize;
+	int base;
+	int dieRolls;
 
 	// Constructor method for StatsRules
 
  	public StatsRules(){
  		
  		setBase();
- 		int base =baseScore;
+ 		base =baseScore;
  		System.out.println("What sided die will be used?");
- 		int dieSize=enforcePositive(minDie);
+ 		dieSize=enforcePositive(minDie);
  		System.out.println("How many times to roll per stat?");
- 		int dieRolls=enforcePositive(minRolls);
+ 		dieRolls=enforcePositive(minRolls);
  		
  		/*  This demonstrates using recursion in an interative process.  
  		    could delete do while loop by replacing minRolls with dieRolls */
@@ -62,11 +65,11 @@ public class StatsRules{
  	*/	
  	public int pickWholeNumber(){
  			
- 		while (!u.hasNextInt()) {
+ 		while (!sc.hasNextInt()) {
 	   		System.out.println("Need a whole number 0 or higher");
-	   		u.nextLine();
+	   		sc.nextLine();
 		}
-		return u.nextInt();
+		return sc.nextInt();
  	}
 	 
 }
