@@ -3,15 +3,6 @@
  * 
  * Author:          Eric Ehmann, eaehmann@gmail.com
  * Date modified:   March 19, 2018
- 
-int minDie=2;
- 	int minRolls=1;
-	int numberKept;
-	int baseScore=0;
-	int dieSize;
-	int base;
-	int dieRolls;
-
  */
 
 import java.util.Random;
@@ -20,24 +11,29 @@ import java.util.Arrays;
 public class StatsRolls{
 
 	public static final int ATTRIBUTENUMBER =6;
-	String[][] Stats= new String [ATTRIBUTENUMBER][2];
-	int[] trackedScores = new int[ATTRIBUTENUMBER];
+	int[] trackedScores;
 	Random randomGenerator = new Random();
 	String[] attributesChoices={"Dexterity", "Strength", "Toughness", "Perception", "Willpower", "Charisma"};
 	StatsRules rules;
 
 	public StatsRolls(){
 		rules =new StatsRules();
-		getAllScores();
+		trackedScores = new int[ATTRIBUTENUMBER];
+		//getAllScores();
 	}
 
 	
 
 	// creates an array of of integers to be used for attributes 
 
- 	public void getAllScores(){
- 		for (int score : trackedScores)
- 			System.out.println(findScore());		
+
+// This right here needs to be fixed it is not keeping the scores.
+ 	public void getAllScores(int [] trackedValues){
+ 		for (int i=0; i< trackedValues.length; i++){
+ 			trackedValues[i]=findScore();
+ 			System.out.println(trackedValues[i]);		
+ 		}
+ 		System.out.println("This is working");
  	}
  	
 	
@@ -75,16 +71,6 @@ public class StatsRolls{
  		return trackedRolls;
  	}
 
-
- 	/* simuulattes rolling a die.  The number of sides is based on user input
- 	It will take the number and return an integer between 1 and that nubmber
- 	** @Param sides the number of sides on the die
- 	** @returns int random number between one and sides
- 	*/
-	 	
-	//public int rollDie(){
-	 //	return 
-	// }
  		
 	/* Takes array of chosen numbers, and totals the array.  
  	* @parameter trackedNumbers is array of kept rolls
